@@ -24,11 +24,44 @@ function generatMaze (columnsNumber, rowsNumber, tractorsNumber = 1) {
 
 	// сделаем ячейку, в которой изначально стоит трактор, пустой
 	setField(startX, startY, 'space')
-
 	// если лабиринт ещё не готов, рисовать трактор и регистрировать функцию tick() ещё раз
 	while (!isMaze()) {
 		moveTractors()
 	}
+
+	//add borders
+	const row_border_top = []
+	const row_border_bottom = []
+	for (let x = 0; x < columnsNumber + 2; x++) {
+		row_border_top.push('wall')
+		row_border_bottom.push('wall')
+	}
+
+	for (let y = 0; y < rowsNumber; y++) {
+		map[y].unshift('wall')
+		map[y].push('wall')
+	}
+	map.unshift(row_border_top)
+	map.push(row_border_bottom)
+
+	// random start & finish
+	let notEligible = true
+	let x = 0
+	while(notEligible) {
+		x = Math.floor(Math.random() * columnsNumber) + 1
+		if (map[1][x] !== 'wall') {
+			notEligible = false
+		}
+	}
+	map[0][x] = 'space'
+	notEligible = true
+	while(notEligible) {
+		x = Math.floor(Math.random() * columnsNumber)+1
+		if (map[rowsNumber][x] !== 'wall') {
+			notEligible = false
+		}
+	}
+	map[rowsNumber+1][x] = 'space'
 
 	return map
 

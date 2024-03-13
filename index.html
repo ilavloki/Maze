@@ -7,8 +7,13 @@
 <body>
 	<canvas></canvas>
 	<script src="generatMaze.js"></script>
-	<script src="getWay.js"></script>
-	<script src="mouseWatcher.js"></script>
 	<script src="script.js"></script>
+    <br/>
+	<label>
+        <input type="checkbox" onchange="updateCheck(event)" >
+		Рисовать только правильный путь
+    </label>
+	<br/>
+	<button onClick="clearWay(); window.btnToEnable=this; window.myInt = setInterval(findWay,10); this.disabled=true">Начать исследование</button>
 </body>
 </html>
